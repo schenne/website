@@ -62,13 +62,17 @@
         /* GRIGLIA SERVIZI (RIPRISTINATA COME PRIMA) */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(5, 1fr); /* Forza 5 colonne */
+            gap: 12px; /* Ridotto lo spazio tra le card */
         }
         .service-card {
-            background: var(--white); padding: 30px;
-            border-radius: 15px; border: 1px solid var(--border); transition: 0.3s ease;
+            background: var(--white);
+            padding: 20px 15px; /* Ridotto il padding interno (sopra/sotto e lati) */
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: 0.3s ease;
         }
+        
         .service-card:hover { transform: translateY(-5px); border-color: var(--primary); }
         .service-card h3 { color: var(--secondary); margin-bottom: 1rem; font-size: 1.2rem; border-left: 4px solid var(--primary); padding-left: 12px; }
         .service-list { list-style: none; }
