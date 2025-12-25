@@ -130,7 +130,26 @@
 
         @media (max-width: 768px) {
             .profile-img { width: 180px; height: 180px; }
+            .services-grid {
+                display: flex; /* Trasforma la griglia in flex per lo scorrimento */
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 10px;
+                padding-bottom: 15px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .service-card {
+                flex: 0 0 calc(50% - 10px); /* Visualizza esattamente 2 card (metà schermo meno il gap) */
+                scroll-snap-align: start;
+                min-width: 160px; /* Evita che diventino troppo strette su schermi minuscoli */
+                padding: 20px 15px; /* Compattiamo un po' il testo */
+            }
     
+            .service-card h3 {
+                font-size: 1rem; /* Riduce leggermente il titolo per farlo stare su una riga */
+            }
+            
             /* Centra le card e ne mostra una alla volta */
             .wide-card { 
             flex: 0 0 100%; /* Occupa tutta la larghezza del contenitore */
