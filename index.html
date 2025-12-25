@@ -126,9 +126,30 @@
 
         @media (max-width: 768px) {
             .profile-img { width: 180px; height: 180px; }
+    
+            /* Centra le card e ne mostra una alla volta */
+            .wide-card { 
+            flex: 0 0 100%; /* Occupa tutta la larghezza del contenitore */
+            scroll-snap-align: center; /* Forza il blocco dello scroll al centro della card */
+            }
+
+            /* Gestisce il padding del contenitore per la centratura */
+            .horizontal-scroll { 
+                padding-left: 0; 
+                padding-right: 0; 
+                margin-left: 0; 
+                margin-right: 0;
+                scroll-padding: 0;
+                display: flex;
+                overflow-x: auto;
+            }
+        }   
+/*      
+        @media (max-width: 768px) {
+            .profile-img { width: 180px; height: 180px; }
             .wide-card { flex: 0 0 85%; }
             .scroll-wrapper { padding-left: 20px; padding-right: 20px; margin-left: -20px; margin-right: -20px; }
-        }
+        }*/
     </style>
 </head>
 <body>
