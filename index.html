@@ -1,347 +1,532 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alessandro Schenetti | IT System Administrator Freelance</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #2563eb;
-            --secondary: #1e293b;
-            --whatsapp: #25d366;
-            --bg-light: #f8fafc;
-            --white: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-        }
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alessandro Schenetti | IT System Administrator Freelance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:   #2563eb;
+      --indigo: #4f46e5;
+      --teal:   #0d9488;
+      --amber:  #f59e0b;
+      --rose:   #f43f5e;
+      --green:  #22c55e;
+      --bg:     #f9fafb;
+      --white:  #ffffff;
+      --ink:    #111827;
+      --muted:  #6b7280;
+      --border: #e5e7eb;
+      --radius: 16px;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        html { scroll-behavior: smooth; }
-        body { background-color: var(--bg-light); color: var(--text-main); line-height: 1.5; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Instrument Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
 
-        nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 0.8rem 2rem;
-            position: fixed; width: 100%; top: 0; z-index: 1000;
-            border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .logo { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(249,250,251,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex; align-items: center;
+      padding: 0 clamp(16px, 5vw, 56px);
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800; font-size: 1rem; color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo em { color: var(--blue); font-style: normal; }
+    .nav-links { display: flex; gap: 4px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted); font-size: 0.875rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 8px; transition: all .2s;
+    }
+    .nav-links a:hover { color: var(--ink); background: var(--white); }
+    .nav-cta { background: var(--blue) !important; color: #fff !important; border-radius: 8px !important; }
+    .nav-cta:hover { background: var(--indigo) !important; }
 
-        header {
-            padding: 120px 20px 50px;
-            text-align: center;
-            background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
-        }
-        
-        .profile-img {
-            width: 250px; height: 250px;
-            border-radius: 50%; object-fit: cover;
-            border: 6px solid var(--white);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-            margin-bottom: 1rem; transition: transform 0.3s ease;
-            background-color: #ddd;
-        }
-        .profile-img:hover { transform: scale(1.03); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 2px; transition: .3s; }
 
-        h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 0.5rem; color: var(--secondary); }
-        h1 span { color: var(--primary); }
-        .hero-p { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 1.5rem; }
+    .mobile-menu {
+      display: none; position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 12px 16px; flex-direction: column; gap: 4px; z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none; color: var(--muted); font-size: 0.95rem;
+      padding: 11px 14px; border-radius: 10px; transition: .2s;
+    }
+    .mobile-menu a:hover { background: var(--bg); color: var(--ink); }
+    .mobile-menu .m-cta { background: var(--blue); color: #fff !important; text-align: center; margin-top: 6px; font-weight: 600; }
 
-        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
+    /* ─── HERO ─── */
+    header {
+      padding: 120px clamp(16px,5vw,56px) 72px;
+      position: relative; overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute; top: -120px; right: -80px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.11) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    header::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -60px;
+      width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(13,148,136,.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-        section { padding: 40px 0; }
-        .section-title { text-align: center; margin-bottom: 30px; }
-        .section-title h2 { font-size: 2rem; color: var(--secondary); display: inline-block; position: relative; }
-        .section-title h2::after { content: ''; display: block; width: 40px; height: 3px; background: var(--primary); margin: 8px auto; border-radius: 2px; }
+    .hero-inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 60px; align-items: center;
+      position: relative; z-index: 1;
+    }
 
-        /* GRIGLIA SERVIZI (RIPRISTINATA COME PRIMA) */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr); /* Forza 5 colonne */
-            gap: 12px; /* Ridotto lo spazio tra le card */
-        }
-        .service-card {
-            background: var(--white);
-            padding: 20px 15px; /* Ridotto il padding interno (sopra/sotto e lati) */
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: 0.3s ease;
-        }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--white); border: 1px solid var(--border);
+      padding: 5px 14px; border-radius: 20px;
+      font-size: 0.78rem; color: var(--muted); font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase; margin-bottom: 22px;
+    }
+    .dot-live { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-        .service-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .service-card h3 { color: var(--secondary); margin-bottom: 1rem; font-size: 1.2rem; border-left: 4px solid var(--primary); padding-left: 12px; }
-        .service-list { list-style: none; }
-        .service-list li { margin-bottom: 8px; padding-left: 22px; position: relative; color: var(--text-main); font-size: 0.95rem; }
-        .service-list li::before { content: "✓"; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+    h1 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 800; line-height: 1.08;
+      letter-spacing: -0.03em; color: var(--ink);
+      margin-bottom: 20px;
+    }
+    h1 .hi-blue  { color: var(--blue); }
+    h1 .hi-teal  { color: var(--teal); }
 
-        /* WRAPPER SCROLL ORIZZONTALE (CERT E CLIENTI) */
-        .scroll-wrapper {
-            display: flex;
-            gap: 20px;
-            padding-bottom: 20px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-        .scroll-wrapper::-webkit-scrollbar { height: 6px; }
-        .scroll-wrapper::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+    .hero-desc {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 480px; margin-bottom: 36px;
+    }
 
-        /* CARD LARGHE PER SCROLL */
-        .wide-card {
-            flex: 0 0 350px;
-            background: var(--white);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid var(--border);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            scroll-snap-align: start;
-            transition: 0.3s;
-        }
-        .wide-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        
-        .card-img {
-            width: 100px; height: 100px;
-            object-fit: contain; margin-bottom: 15px;
-            background: #f1f5f9; border-radius: 8px;
-        }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
 
-        .wide-card span { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
-        .wide-card h4 { font-size: 1.1rem; color: var(--secondary); margin: 5px 0; }
-        .wide-card p { font-size: 0.9rem; color: var(--text-muted); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px; border-radius: 10px;
+      font-family: 'Instrument Sans', sans-serif; font-weight: 600;
+      font-size: 0.9rem; text-decoration: none; border: none; cursor: pointer;
+      transition: all .22s;
+    }
+    .btn-blue  { background: var(--blue); color: #fff; }
+    .btn-blue:hover  { background: var(--indigo); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,.28); }
+    .btn-ghost { background: var(--white); color: var(--ink); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: #aab; transform: translateY(-2px); }
 
-        /* CONTATTI */
-        .btn { display: inline-block; padding: 14px 30px; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: 0.3s; border: none; cursor: pointer; }
-        .quick-contact { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
-        .btn-wa { background: var(--whatsapp); }
-        .btn-tel { background: var(--secondary); }
+    .hero-photo { position: relative; }
+    .profile-img {
+      width: clamp(180px, 22vw, 280px);
+      height: clamp(180px, 22vw, 280px);
+      border-radius: 28px; object-fit: cover;
+      border: 3px solid var(--white);
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+      display: block;
+    }
+    .badge-float {
+      position: absolute;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      white-space: nowrap;
+    }
+    .badge-float strong { display: block; font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.1rem; color: var(--ink); }
+    .badge-float small  { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+    .bf1 { bottom: -16px; left: -24px; }
+    .bf2 { top: -16px; right: -24px; }
 
-        #contact-box { background: var(--white); padding: 35px; border-radius: 15px; border: 1px solid var(--border); max-width: 600px; margin: 0 auto; }
-        input, textarea, select { width: 100%; padding: 12px; margin: 8px 0 15px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg-light); color: var(--text-main); }
+    /* ─── LAYOUT ─── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 clamp(16px,5vw,56px); }
+    section { padding: 80px 0; }
 
-        footer { text-align: center; padding: 40px 20px; background: var(--secondary); color: #94a3b8; font-size: 0.85rem; }
+    .sec-eyebrow {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 10px;
+    }
+    h2 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .sec-sub { color: var(--muted); font-size: 1rem; max-width: 460px; margin-bottom: 44px; }
 
-        @media (max-width: 768px) {
-            .profile-img { width: 180px; height: 180px; }
-            .services-grid {
-                display: flex; /* Trasforma la griglia in flex per lo scorrimento */
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                gap: 10px;
-                padding-bottom: 15px;
-                -webkit-overflow-scrolling: touch;
-            }
+    /* ─── SERVICES ─── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .svc {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px 20px;
+      transition: all .25s; cursor: default;
+    }
+    .svc:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.08); border-color: transparent; }
+    .svc-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 16px;
+    }
+    .ic-blue   { background: #eff6ff; }
+    .ic-teal   { background: #f0fdfa; }
+    .ic-amber  { background: #fffbeb; }
+    .ic-indigo { background: #eef2ff; }
+    .ic-rose   { background: #fff1f2; }
+    .svc h3 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px;
+    }
+    .svc ul { list-style: none; }
+    .svc ul li {
+      font-size: 0.85rem; color: var(--muted); padding: 4px 0;
+      border-bottom: 1px solid #f3f4f6; display: flex; align-items: baseline; gap: 6px;
+    }
+    .svc ul li:last-child { border-bottom: none; }
+    .svc ul li::before { content: '·'; color: var(--blue); font-size: 1.1em; flex-shrink: 0; }
 
-            .service-card {
-                flex: 0 0 calc(50% - 10px); /* Visualizza esattamente 2 card (metà schermo meno il gap) */
-                scroll-snap-align: start;
-                min-width: 160px; /* Evita che diventino troppo strette su schermi minuscoli */
-                padding: 20px 15px; /* Compattiamo un po' il testo */
-            }
-    
-            .service-card h3 {
-                font-size: 1rem; /* Riduce leggermente il titolo per farlo stare su una riga */
-            }
-            
-            /* Centra le card e ne mostra una alla volta */
-            .wide-card { 
-            flex: 0 0 100%; /* Occupa tutta la larghezza del contenitore */
-            scroll-snap-align: center; /* Forza il blocco dello scroll al centro della card */
-            }
+    /* ─── CERTIFICATIONS ─── */
+    #certifications { background: var(--white); }
+    .certs-scroll {
+      display: flex; gap: 14px;
+      overflow-x: auto; padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .certs-scroll::-webkit-scrollbar { height: 3px; }
+    .certs-scroll::-webkit-scrollbar-track { background: var(--bg); }
+    .certs-scroll::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 4px; }
+    .cert-card {
+      flex: 0 0 240px; scroll-snap-align: start;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px 20px; transition: all .25s;
+    }
+    .cert-card:hover { border-color: var(--blue); box-shadow: 0 8px 24px rgba(37,99,235,.1); transform: translateY(-3px); }
+    .cert-logo { width: 64px; height: 64px; object-fit: contain; margin-bottom: 14px; }
+    .cert-vendor { font-size: 0.7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: 5px; }
+    .cert-card h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--ink); }
 
-            /* Gestisce il padding del contenitore per la centratura */
-            .horizontal-scroll { 
-                padding-left: 0; 
-                padding-right: 0; 
-                margin-left: 0; 
-                margin-right: 0;
-                scroll-padding: 0;
-                display: flex;
-                overflow-x: auto;
-            }
-        }   
-/*      
-        @media (max-width: 768px) {
-            .profile-img { width: 180px; height: 180px; }
-            .wide-card { flex: 0 0 85%; }
-            .scroll-wrapper { padding-left: 20px; padding-right: 20px; margin-left: -20px; margin-right: -20px; }
-        }*/
-    </style>
+    /* ─── CLIENTS ─── */
+    .clients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+    .client-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px; transition: all .25s;
+    }
+    .client-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.07); }
+    .client-logo { width: 52px; height: 52px; object-fit: contain; margin-bottom: 14px; }
+    .client-tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
+      background: #eff6ff; color: var(--blue); margin-bottom: 12px;
+    }
+    .client-card h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .client-card p { font-size: 0.875rem; color: var(--muted); }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--white); }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; align-items: start; }
+    .contact-aside h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+    .contact-aside p { font-size: 0.9rem; color: var(--muted); margin-bottom: 28px; }
+    .cta-links { display: flex; flex-direction: column; gap: 10px; }
+    .cta-link {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 12px;
+      text-decoration: none; transition: all .22s;
+    }
+    .cta-link:hover { border-color: var(--blue); background: #eff6ff; transform: translateX(4px); }
+    .cta-link-ic { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .ic-green  { background: #dcfce7; }
+    .ic-blue2  { background: #dbeafe; }
+    .cta-link strong { display: block; font-size: 0.875rem; font-weight: 600; color: var(--ink); }
+    .cta-link small  { font-size: 0.78rem; color: var(--muted); }
+    .contact-form { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; }
+    .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .fg { margin-bottom: 14px; }
+    .fg label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; letter-spacing: .04em; text-transform: uppercase; }
+    .fg input, .fg select, .fg textarea {
+      width: 100%; padding: 10px 13px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--ink);
+      font-family: 'Instrument Sans', sans-serif; font-size: 0.9rem;
+      transition: border-color .2s, box-shadow .2s; appearance: none;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
+    .fg textarea { resize: vertical; min-height: 96px; }
+    .fg select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 13px center; }
+    .btn-submit {
+      width: 100%; padding: 12px; background: var(--blue); color: #fff;
+      border: none; border-radius: 10px; cursor: pointer;
+      font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: .02em; transition: all .22s;
+    }
+    .btn-submit:hover { background: var(--indigo); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,.3); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 32px clamp(16px,5vw,56px);
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .foot-logo { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--ink); }
+    .foot-logo em { color: var(--blue); font-style: normal; }
+    .foot-copy { font-size: 0.8rem; color: var(--muted); }
+
+    /* ─── FADE IN ─── */
+    .fi { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
+    .fi.in { opacity: 1; transform: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 36px; }
+      .hero-desc { margin: 0 auto 30px; }
+      .hero-btns { justify-content: center; }
+      .hero-photo { display: none; }
+      .contact-wrap { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+    @media(max-width:768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .form-row2 { grid-template-columns: 1fr; }
+      section { padding: 60px 0; }
+    }
+    @media(max-width:480px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <body>
 
-    <nav>
-        <div class="logo">ALESSANDRO SCHENETTI</div>
-        <a href="#contact" class="btn" style="padding: 8px 16px; font-size: 0.8rem;">Contattami</a>
-    </nav>
+<nav>
+  <div class="nav-logo">Alessandro <em>Schenetti</em></div>
+  <ul class="nav-links">
+    <li><a href="#services">Servizi</a></li>
+    <li><a href="#certifications">Certificazioni</a></li>
+    <li><a href="#clients">Clienti</a></li>
+    <li><a href="#contact" class="nav-cta">Contattami</a></li>
+  </ul>
+  <div class="hamburger" id="ham"><span></span><span></span><span></span></div>
+</nav>
 
-    <header>
-        <div class="container">
-            <img src="profile.jpg" alt="Alessandro Schenetti" class="profile-img">
-            <h1>Sistemista IT <span>Freelance</span></h1>
-            <p class="hero-p">Specialista VMware Master Specialist, Linux e Veeam. Soluzioni infrastrutturali e automazione.</p>
-            <a href="#services" class="btn">Cosa faccio</a>
-        </div>
-    </header>
+<div class="mobile-menu" id="mob">
+  <a href="#services"       onclick="cm()">Servizi</a>
+  <a href="#certifications" onclick="cm()">Certificazioni</a>
+  <a href="#clients"        onclick="cm()">Clienti</a>
+  <a href="#contact" class="m-cta" onclick="cm()">Contattami</a>
+</div>
 
-    <div class="container">
-        <section id="services">
-            <div class="section-title"><h2>Servizi Principali</h2></div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>vSphere</h3>
-                    <ul class="service-list">
-                        <li>Patching ESXI + vCenter</li>
-                        <li>Upgrade Major Release</li>
-                        <li>Migrazioni infrastrutturali</li>
-                        <li>Troubleshooting avanzato</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <h3>Linux</h3>
-                    <ul class="service-list">
-                        <li>Aggiornamenti & Hardening</li>
-                        <li>Automazione (Ansible / Bash)</li>
-                        <li>Gestione Web Server</li>
-                        <li>Troubleshooting avanzato</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <h3>Veeam</h3>
-                    <ul class="service-list">
-                        <li>Installazione & Upgrade</li>
-                        <li>Risoluzione problemi Backup</li>
-                        <li>Migrazione repository</li>
-                        <li>Piani Disaster Recovery</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <h3>Cloud Hybrid</h3>
-                    <ul class="service-list">
-                        <li>VMware Cloud on AWS</li>
-                        <li>Azure VMware Solution</li>
-                        <li>Gestione infrastrutture Cloud</li>
-                        <li>Ottimizzazione costi</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <h3>Web</h3>
-                    <ul class="service-list">
-                        <li>Gestione domini</li>
-                        <li>Gestione server DNS / Bind</li>
-                        <li>Migrazione siti web</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="certifications">
-            <div class="section-title"><h2>Certificazioni</h2></div>
-            <div class="scroll-wrapper">
-                <div class="wide-card">
-                    <img src="certs/aws.png" alt="AWS" class="card-img">
-                    <span>Amazon Web Services</span>
-                    <h4>AWS Certified Cloud Practitioner</h4>
-                </div>
-                <div class="wide-card">
-                    <img src="certs/vmwareaws.png" alt="VMware" class="card-img">
-                    <span>VMware</span>
-                    <h4>Master Specialist - VMware Cloud on AWS</h4>
-                </div>
-                <div class="wide-card">
-                    <img src="certs/datacenter.png" alt="VMware" class="card-img">
-                    <span>VMware</span>
-                    <h4>VCP - Data Center Virtualization</h4>
-                </div>
-                <div class="wide-card">
-                    <img src="certs/nsx.png" alt="VMware" class="card-img">
-                    <span>VMware</span>
-                    <h4>VCP - Network Virtualization</h4>
-                </div>
-                <div class="wide-card">
-                    <img src="certs/tanzu.png" alt="VMware" class="card-img">
-                    <span>VMware</span>
-                    <h4>Specialist - vSphere with Tanzu</h4>
-                </div>
-            </div>
-        </section>
-
-        <section id="clients">
-            <div class="section-title"><h2>Principali Collaborazioni</h2></div>
-            <div class="scroll-wrapper">
-                <div class="wide-card">
-                    <img src="customers/wip.png" alt="Cineca" class="card-img">
-                    <strong>Work in progress</strong>
-                    <p>Progettazione e gestione infrastruttura VMware vSphere Enterprise.</p>
-                </div>
-                <div class="wide-card">
-                    <img src="customers/wip.png" alt="Marchesini" class="card-img">
-                    <strong>Work in progress</strong>
-                    <p>Automazione server Linux tramite Ansible e implementazione policy di Hardening.</p>
-                </div>
-                <div class="wide-card">
-                    <img src="customers/wip.png" alt="Cliente 3" class="card-img">
-                    <strong>Work in progress</strong>
-                    <p>Gestione sistemi di Backup e Disaster Recovery con tecnologia Veeam.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="section-title"><h2>Contattami</h2></div>
-            <div class="quick-contact">
-                <a href="https://wa.me/393516657187" class="btn btn-wa" target="_blank">WhatsApp</a>
-                <a href="tel:+393516657187" class="btn btn-tel">📞 +39 3516657187</a>
-            </div>
-
-            <div id="contact-box">
-                <form action="https://formspree.io/f/mrezwgbd" method="POST">
-                    <input type="text" name="nome" placeholder="Nome / Azienda" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <select name="servizio" required>
-                        <option value="" disabled selected>Ambito di interesse</option>
-                        <option value="vmware">Virtualizzazione VMware</option>
-                        <option value="linux">Sistemi Linux</option>
-                        <option value="veeam">Backup & Veeam</option>
-                        <option value="cloud">Cloud & AWS</option>
-                        <option value="altro">Altro</option>
-                    </select>
-                    <textarea name="messaggio" rows="4" placeholder="Descrivi brevemente la tua necessità..."></textarea>
-                    <button type="submit" class="btn" style="width: 100%;">Invia Email</button>
-                </form>
-            </div>
-        </section>
+<header>
+  <div class="hero-inner">
+    <div class="fi">
+      <div class="hero-pill"><span class="dot-live"></span> Disponibile per nuovi progetti</div>
+      <h1>Sistemista IT<br><span class="hi-blue">Freelance</span><br><span class="hi-teal">& Cloud Specialist</span></h1>
+      <p class="hero-desc">VMware Master Specialist, Linux e Veeam. Progetto, gestisco e automatizzo infrastrutture IT per aziende che non si possono permettere downtime.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-blue">Parliamo →</a>
+        <a href="#services" class="btn btn-ghost">Cosa faccio</a>
+      </div>
     </div>
+    <div class="hero-photo fi" style="transition-delay:.12s">
+      <img src="profile.jpg" alt="Alessandro Schenetti" class="profile-img">
+      <div class="badge-float bf1"><strong>5+ anni</strong><small>di esperienza</small></div>
+      <div class="badge-float bf2"><strong>VMware</strong><small>Master Specialist</small></div>
+    </div>
+  </div>
+</header>
 
-    <footer>
-        <div class="container">
-            <strong>Alessandro Schenetti</strong>
-            <p>Modena, Italia | P.IVA IT 01234567890</p>
-            <p style="margin-top: 15px; font-size: 0.75rem; opacity: 0.4;">&copy; 2025 Alessandro Schenetti.</p>
+<div class="container">
+  <section id="services">
+    <p class="sec-eyebrow fi">Cosa faccio</p>
+    <h2 class="fi">Servizi Principali</h2>
+    <p class="sec-sub fi">Dall'infrastruttura on-premise al cloud ibrido, con automazione e zero improvvisazione.</p>
+    <div class="services-grid">
+      <div class="svc fi">
+        <div class="svc-icon ic-blue">⚡</div>
+        <h3>vSphere</h3>
+        <ul>
+          <li>Patching ESXi + vCenter</li><li>Upgrade major release</li>
+          <li>Migrazioni infrastrutturali</li><li>Troubleshooting avanzato</li>
+        </ul>
+      </div>
+      <div class="svc fi" style="transition-delay:.06s">
+        <div class="svc-icon ic-teal">🐧</div>
+        <h3>Linux</h3>
+        <ul>
+          <li>Aggiornamenti & Hardening</li><li>Automazione Ansible/Bash</li>
+          <li>Gestione Web Server</li><li>Troubleshooting avanzato</li>
+        </ul>
+      </div>
+      <div class="svc fi" style="transition-delay:.12s">
+        <div class="svc-icon ic-amber">💾</div>
+        <h3>Veeam</h3>
+        <ul>
+          <li>Installazione & Upgrade</li><li>Risoluzione problemi backup</li>
+          <li>Migrazione repository</li><li>Piani Disaster Recovery</li>
+        </ul>
+      </div>
+      <div class="svc fi" style="transition-delay:.18s">
+        <div class="svc-icon ic-indigo">☁️</div>
+        <h3>Cloud Hybrid</h3>
+        <ul>
+          <li>VMware Cloud on AWS</li><li>Azure VMware Solution</li>
+          <li>Gestione infrastrutture Cloud</li><li>Ottimizzazione costi</li>
+        </ul>
+      </div>
+      <div class="svc fi" style="transition-delay:.24s">
+        <div class="svc-icon ic-rose">🌐</div>
+        <h3>Web</h3>
+        <ul>
+          <li>Gestione domini</li><li>Server DNS / Bind</li>
+          <li>Migrazione siti web</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="certifications">
+  <div class="container">
+    <p class="sec-eyebrow fi">Certificazioni</p>
+    <h2 class="fi">Competenze Verificate</h2>
+    <p class="sec-sub fi">Certificazioni ufficiali che attestano le competenze tecniche.</p>
+    <div class="certs-scroll">
+      <div class="cert-card fi">
+        <img src="certs/aws.png" alt="AWS" class="cert-logo">
+        <div class="cert-vendor">Amazon Web Services</div>
+        <h4>AWS Certified Cloud Practitioner</h4>
+      </div>
+      <div class="cert-card fi" style="transition-delay:.07s">
+        <img src="certs/vmwareaws.png" alt="VMware" class="cert-logo">
+        <div class="cert-vendor">VMware</div>
+        <h4>Master Specialist – VMware Cloud on AWS</h4>
+      </div>
+      <div class="cert-card fi" style="transition-delay:.14s">
+        <img src="certs/datacenter.png" alt="VMware" class="cert-logo">
+        <div class="cert-vendor">VMware</div>
+        <h4>VCP – Data Center Virtualization</h4>
+      </div>
+      <div class="cert-card fi" style="transition-delay:.21s">
+        <img src="certs/nsx.png" alt="VMware" class="cert-logo">
+        <div class="cert-vendor">VMware</div>
+        <h4>VCP – Network Virtualization</h4>
+      </div>
+      <div class="cert-card fi" style="transition-delay:.28s">
+        <img src="certs/tanzu.png" alt="VMware" class="cert-logo">
+        <div class="cert-vendor">VMware</div>
+        <h4>Specialist – vSphere with Tanzu</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="clients">
+  <div class="container">
+    <p class="sec-eyebrow fi">Collaborazioni</p>
+    <h2 class="fi">Principali Clienti</h2>
+    <p class="sec-sub fi">Progetti reali, risultati concreti.</p>
+    <div class="clients-grid">
+      <div class="client-card fi">
+        <img src="customers/wip.png" alt="Cliente" class="client-logo">
+        <div class="client-tag">In corso</div>
+        <h4>Infrastruttura Enterprise</h4>
+        <p>Progettazione e gestione infrastruttura VMware vSphere in ambienti mission-critical.</p>
+      </div>
+      <div class="client-card fi" style="transition-delay:.08s">
+        <img src="customers/wip.png" alt="Cliente" class="client-logo">
+        <div class="client-tag">In corso</div>
+        <h4>Automazione Linux</h4>
+        <p>Automazione server Linux con Ansible e implementazione policy di hardening CIS.</p>
+      </div>
+      <div class="client-card fi" style="transition-delay:.16s">
+        <img src="customers/wip.png" alt="Cliente" class="client-logo">
+        <div class="client-tag">In corso</div>
+        <h4>Backup & Disaster Recovery</h4>
+        <p>Gestione sistemi di backup e DR con Veeam in ambiente multi-site.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <p class="sec-eyebrow fi">Contatti</p>
+    <h2 class="fi">Parliamo del tuo progetto</h2>
+    <p class="sec-sub fi">Consulenze una-tantum, supporto continuativo o progetti a corpo.</p>
+    <div class="contact-wrap">
+      <div class="contact-aside fi">
+        <h3>Come posso aiutarti?</h3>
+        <p>Hai un'infrastruttura da ottimizzare, una migrazione cloud da pianificare o problemi di backup da risolvere? Contattami direttamente.</p>
+        <div class="cta-links">
+          <a href="https://wa.me/393516657187" class="cta-link" target="_blank">
+            <div class="cta-link-ic ic-green">💬</div>
+            <div><strong>WhatsApp</strong><small>Risposta rapida</small></div>
+          </a>
+          <a href="tel:+393516657187" class="cta-link">
+            <div class="cta-link-ic ic-blue2">📞</div>
+            <div><strong>+39 351 665 7187</strong><small>Lun–Ven, 9:00–18:00</small></div>
+          </a>
         </div>
-    </footer>
+      </div>
+      <div class="contact-form fi" style="transition-delay:.1s">
+        <form action="https://formspree.io/f/mrezwgbd" method="POST">
+          <div class="form-row2">
+            <div class="fg"><label>Nome / Azienda</label><input type="text" name="nome" placeholder="Mario Rossi" required></div>
+            <div class="fg"><label>Email</label><input type="email" name="email" placeholder="mario@azienda.it" required></div>
+          </div>
+          <div class="fg">
+            <label>Ambito di interesse</label>
+            <select name="servizio" required>
+              <option value="" disabled selected>Seleziona un ambito…</option>
+              <option value="vmware">Virtualizzazione VMware</option>
+              <option value="linux">Sistemi Linux</option>
+              <option value="veeam">Backup & Veeam</option>
+              <option value="cloud">Cloud & AWS</option>
+              <option value="altro">Altro</option>
+            </select>
+          </div>
+          <div class="fg"><label>Messaggio</label><textarea name="messaggio" placeholder="Descrivi brevemente la tua necessità…"></textarea></div>
+          <button type="submit" class="btn-submit">Invia messaggio →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
+<footer>
+  <div class="foot-logo">Alessandro <em>Schenetti</em></div>
+  <div class="foot-copy">Modena, Italia · P.IVA IT 01234567890 · © 2025</div>
+</footer>
+
+<script>
+  const ham = document.getElementById('ham');
+  const mob = document.getElementById('mob');
+  ham.addEventListener('click', () => mob.classList.toggle('open'));
+  function cm() { mob.classList.remove('open'); }
+  document.addEventListener('click', e => { if (!ham.contains(e.target) && !mob.contains(e.target)) mob.classList.remove('open'); });
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: 0.1 });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
