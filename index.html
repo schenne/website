@@ -7,319 +7,266 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alessandro Schenetti | IT System Administrator Freelance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --blue:   #2563eb;
-      --indigo: #4f46e5;
-      --teal:   #0d9488;
-      --amber:  #f59e0b;
-      --rose:   #f43f5e;
-      --green:  #22c55e;
-      --bg:     #f8fafc;
-      --white:  #ffffff;
-      --ink:    #0f172a;
-      --muted:  #64748b;
-      --border: #e2e8f0;
-      --radius: 18px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.06);
-      --shadow-md: 0 4px 16px rgba(0,0,0,.06), 0 2px 4px rgba(0,0,0,.04);
-      --shadow-lg: 0 20px 50px rgba(0,0,0,.08), 0 8px 20px rgba(0,0,0,.04);
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --ink: #111;
+      --secondary: #555;
+      --muted: #999;
+      --line: #eaeaea;
+      --radius: 12px;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--ink); font-family: 'Instrument Sans', sans-serif; line-height: 1.65; overflow-x: hidden; }
+    body {
+      background: var(--bg); color: var(--ink);
+      font-family: 'Inter', -apple-system, sans-serif;
+      line-height: 1.6; overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
     /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; width: 100%; z-index: 100;
-      background: rgba(248,250,252,0.82);
-      backdrop-filter: blur(20px) saturate(1.6);
-      -webkit-backdrop-filter: blur(20px) saturate(1.6);
-      border-bottom: 1px solid rgba(226,232,240,0.6);
-      height: 64px;
+      background: rgba(250,250,250,0.8);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      height: 56px;
       display: flex; align-items: center;
-      padding: 0 clamp(16px, 5vw, 56px);
+      padding: 0 clamp(20px, 5vw, 48px);
       justify-content: space-between;
     }
     .nav-logo {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-weight: 800; font-size: 1.05rem; color: var(--ink);
+      font-weight: 700; font-size: 0.9rem; color: var(--ink);
       letter-spacing: -0.02em;
     }
-    .nav-logo em { color: var(--blue); font-style: normal; }
-    .nav-links { display: flex; gap: 4px; list-style: none; }
+    .nav-logo em { color: var(--accent); font-style: normal; }
+    .nav-links { display: flex; gap: 2px; list-style: none; }
     .nav-links a {
-      text-decoration: none; color: var(--muted); font-size: 0.875rem; font-weight: 500;
-      padding: 7px 16px; border-radius: 10px; transition: all .2s;
+      text-decoration: none; color: var(--muted); font-size: 0.82rem; font-weight: 500;
+      padding: 6px 12px; border-radius: 6px; transition: color .15s;
     }
-    .nav-links a:hover { color: var(--ink); background: var(--white); box-shadow: var(--shadow-sm); }
-    .nav-cta { background: var(--blue) !important; color: #fff !important; border-radius: 10px !important; box-shadow: 0 2px 8px rgba(37,99,235,.25) !important; }
-    .nav-cta:hover { background: var(--indigo) !important; box-shadow: 0 4px 14px rgba(37,99,235,.35) !important; transform: translateY(-1px); }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink) !important; color: #fff !important;
+      border-radius: 6px !important; padding: 6px 14px !important;
+    }
+    .nav-cta:hover { opacity: 0.85 !important; }
 
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 2px; transition: .3s; }
+    .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; border: none; background: none; padding: 4px; }
+    .hamburger span { display: block; width: 18px; height: 1.5px; background: var(--ink); border-radius: 1px; transition: .3s; }
 
     .mobile-menu {
-      display: none; position: fixed; top: 64px; left: 0; right: 0;
-      background: rgba(255,255,255,0.96); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 16px; flex-direction: column; gap: 4px; z-index: 99;
+      display: none; position: fixed; top: 56px; left: 0; right: 0;
+      background: var(--surface); border-bottom: 1px solid var(--line);
+      padding: 8px 16px; flex-direction: column; gap: 2px; z-index: 99;
     }
     .mobile-menu.open { display: flex; }
     .mobile-menu a {
-      text-decoration: none; color: var(--muted); font-size: 0.95rem;
-      padding: 11px 14px; border-radius: 10px; transition: .2s;
+      text-decoration: none; color: var(--secondary); font-size: 0.9rem; font-weight: 500;
+      padding: 10px 12px; border-radius: 8px; transition: .15s;
     }
     .mobile-menu a:hover { background: var(--bg); color: var(--ink); }
-    .mobile-menu .m-cta { background: var(--blue); color: #fff !important; text-align: center; margin-top: 6px; font-weight: 600; }
+    .mobile-menu .m-cta {
+      background: var(--ink); color: #fff !important; text-align: center;
+      margin-top: 4px; font-weight: 600; border-radius: 8px;
+    }
 
     /* ─── HERO ─── */
     header {
-      padding: 140px clamp(16px,5vw,56px) 80px;
-      position: relative; overflow: hidden;
-      background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 50%, #f0fdfa 100%);
+      padding: 140px clamp(20px,5vw,48px) 100px;
     }
-    header::before {
-      content: '';
-      position: absolute; top: -160px; right: -120px;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 65%);
-      pointer-events: none; animation: float 8s ease-in-out infinite;
-    }
-    header::after {
-      content: '';
-      position: absolute; bottom: -100px; left: -80px;
-      width: 450px; height: 450px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(13,148,136,.1) 0%, transparent 65%);
-      pointer-events: none; animation: float 10s ease-in-out infinite reverse;
-    }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
 
     .hero-inner {
-      max-width: 1160px; margin: 0 auto;
+      max-width: 1000px; margin: 0 auto;
       display: grid; grid-template-columns: 1fr auto;
-      gap: 60px; align-items: center;
-      position: relative; z-index: 1;
+      gap: 64px; align-items: center;
     }
 
     .hero-pill {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--white); border: 1px solid var(--border);
-      padding: 6px 16px; border-radius: 24px;
-      font-size: 0.78rem; color: var(--muted); font-weight: 600;
-      letter-spacing: .04em; text-transform: uppercase; margin-bottom: 24px;
-      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--line); background: var(--surface);
+      padding: 4px 14px; border-radius: 100px;
+      font-size: 0.72rem; color: var(--muted); font-weight: 500;
+      letter-spacing: .03em; text-transform: uppercase; margin-bottom: 28px;
     }
-    .dot-live { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .dot-live {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #22c55e; animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
 
     h1 {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(2.4rem, 5.5vw, 4rem);
-      font-weight: 800; line-height: 1.08;
-      letter-spacing: -0.03em; color: var(--ink);
+      font-size: clamp(2.6rem, 5.5vw, 3.8rem);
+      font-weight: 700; line-height: 1.05;
+      letter-spacing: -0.035em; color: var(--ink);
       margin-bottom: 20px;
     }
-    h1 .hi-blue  { color: var(--blue); }
-    h1 .hi-teal  { color: var(--teal); }
+    h1 .hi { color: var(--accent); }
 
     .hero-desc {
-      font-size: 1.05rem; color: var(--muted);
-      max-width: 480px; margin-bottom: 36px;
+      font-size: 1.05rem; color: var(--secondary);
+      max-width: 440px; margin-bottom: 36px;
+      line-height: 1.6;
     }
 
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
 
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 22px; border-radius: 10px;
-      font-family: 'Instrument Sans', sans-serif; font-weight: 600;
-      font-size: 0.9rem; text-decoration: none; border: none; cursor: pointer;
-      transition: all .22s;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 20px; border-radius: 8px;
+      font-family: inherit; font-weight: 600;
+      font-size: 0.85rem; text-decoration: none; border: none; cursor: pointer;
+      transition: all .15s;
     }
-    .btn-blue  { background: linear-gradient(135deg, var(--blue), var(--indigo)); color: #fff; box-shadow: 0 4px 14px rgba(37,99,235,.3); }
-    .btn-blue:hover  { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,.4); filter: brightness(1.05); }
-    .btn-ghost { background: var(--white); color: var(--ink); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-    .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .btn-primary { background: var(--ink); color: #fff; }
+    .btn-primary:hover { opacity: 0.8; }
+    .btn-ghost { background: transparent; color: var(--secondary); border: 1px solid var(--line); }
+    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
 
     .hero-photo { position: relative; }
     .profile-img {
-      width: clamp(180px, 22vw, 280px);
-      height: clamp(180px, 22vw, 280px);
-      border-radius: 28px; object-fit: cover;
-      border: 3px solid var(--white);
-      box-shadow: 0 24px 64px rgba(0,0,0,.12), 0 8px 20px rgba(37,99,235,.08);
-      display: block;
-      transition: transform .4s ease;
+      width: clamp(180px, 20vw, 240px);
+      height: clamp(180px, 20vw, 240px);
+      border-radius: 20px; object-fit: cover;
+      border: 1px solid var(--line);
     }
-    .profile-img:hover { transform: scale(1.03); }
-    .badge-float {
-      position: absolute;
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 12px; padding: 10px 14px;
-      box-shadow: 0 4px 20px rgba(0,0,0,.08);
-      white-space: nowrap;
-    }
-    .badge-float strong { display: block; font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.1rem; color: var(--ink); }
-    .badge-float small  { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
-    .bf1 { bottom: -16px; left: -24px; }
-    .bf2 { top: -16px; right: -24px; }
 
     /* ─── LAYOUT ─── */
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 clamp(16px,5vw,56px); }
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 clamp(20px,5vw,48px); }
     section { padding: 80px 0; }
+    .divider { border: none; border-top: 1px solid var(--line); margin: 0; }
 
-    .sec-eyebrow {
-      font-size: 0.75rem; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--blue); margin-bottom: 10px;
+    .sec-label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 12px;
     }
     h2 {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-      font-weight: 800; letter-spacing: -0.02em; color: var(--ink);
-      margin-bottom: 10px;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700; letter-spacing: -0.025em; color: var(--ink);
+      margin-bottom: 8px;
     }
-    .sec-sub { color: var(--muted); font-size: 1rem; max-width: 460px; margin-bottom: 44px; }
+    .sec-desc { color: var(--secondary); font-size: 0.92rem; margin-bottom: 48px; }
 
     /* ─── SERVICES ─── */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .services-grid .svc:nth-child(4),
-    .services-grid .svc:nth-child(5) {
-      /* center the last 2 cards */
-    }
-    .services-bottom {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 66.666%;
-      margin: 20px auto 0;
+    .services-list {
+      display: grid; gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
     }
     .svc {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 30px 26px;
-      transition: all .3s ease; cursor: default;
-      position: relative; overflow: hidden;
+      background: var(--surface);
+      padding: 28px 30px;
+      display: grid; grid-template-columns: 40px 1fr;
+      gap: 20px; align-items: start;
+      transition: background .15s;
     }
-    .svc::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      border-radius: var(--radius) var(--radius) 0 0;
-      opacity: 0; transition: opacity .3s;
-    }
-    .svc:nth-child(1)::before, .svc.svc-blue::before { background: var(--blue); }
-    .svc:nth-child(2)::before, .svc.svc-teal::before { background: var(--teal); }
-    .svc:nth-child(3)::before, .svc.svc-amber::before { background: var(--amber); }
-    .svc.svc-indigo::before { background: var(--indigo); }
-    .svc.svc-rose::before { background: var(--rose); }
-    .svc:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
-    .svc:hover::before { opacity: 1; }
+    .svc:hover { background: #f5f5f5; }
     .svc-icon {
-      width: 48px; height: 48px; border-radius: 14px;
+      width: 40px; height: 40px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; margin-bottom: 18px;
+      font-size: 1.15rem; background: var(--bg);
+      border: 1px solid var(--line);
+      flex-shrink: 0;
     }
-    .ic-blue   { background: #eff6ff; }
-    .ic-teal   { background: #f0fdfa; }
-    .ic-amber  { background: #fffbeb; }
-    .ic-indigo { background: #eef2ff; }
-    .ic-rose   { background: #fff1f2; }
-    .svc h3 {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 14px;
+    .svc-body h3 {
+      font-size: 0.92rem; font-weight: 600; color: var(--ink);
+      margin-bottom: 6px; letter-spacing: -0.01em;
     }
-    .svc ul { list-style: none; }
-    .svc ul li {
-      font-size: 0.875rem; color: var(--muted); padding: 5px 0;
-      border-bottom: 1px solid #f1f5f9; display: flex; align-items: baseline; gap: 8px;
+    .svc-body p {
+      font-size: 0.83rem; color: var(--muted); line-height: 1.5;
     }
-    .svc ul li:last-child { border-bottom: none; }
-    .svc ul li::before { content: '→'; color: var(--blue); font-size: 0.75em; flex-shrink: 0; }
 
     /* ─── CERTIFICATIONS ─── */
-    #certifications { background: var(--white); }
     .certs-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
     }
-    .certs-bottom {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      max-width: 66.666%;
-      margin: 16px auto 0;
+    .cert {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      transition: border-color .15s;
     }
-    .cert-card {
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 28px 24px;
-      transition: all .3s ease;
-      display: flex; align-items: center; gap: 20px;
+    .cert:hover { border-color: #ccc; }
+    .cert-logo { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+    .cert-text { flex: 1; }
+    .cert-vendor {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 2px;
     }
-    .cert-card:hover { border-color: var(--blue); box-shadow: 0 12px 32px rgba(37,99,235,.1); transform: translateY(-4px); }
-    .cert-logo { width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; }
-    .cert-info { flex: 1; }
-    .cert-vendor { font-size: 0.68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
-    .cert-card h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+    .cert h4 { font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
 
     /* ─── CONTACT ─── */
-    #contact { background: var(--white); }
-    .contact-wrap { display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; align-items: start; }
-    .contact-aside h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
-    .contact-aside p { font-size: 0.9rem; color: var(--muted); margin-bottom: 28px; }
-    .cta-links { display: flex; flex-direction: column; gap: 10px; }
-    .cta-link {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 16px; background: var(--bg);
-      border: 1px solid var(--border); border-radius: 12px;
-      text-decoration: none; transition: all .22s;
+    #contact { background: var(--surface); border-top: 1px solid var(--line); }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px; align-items: start; }
+    .contact-aside h3 { font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.02em; }
+    .contact-aside p { font-size: 0.88rem; color: var(--secondary); margin-bottom: 24px; line-height: 1.6; }
+    .wa-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; background: #22c55e; color: #fff;
+      border-radius: 8px; text-decoration: none;
+      font-size: 0.84rem; font-weight: 600; transition: opacity .15s;
     }
-    .cta-link:hover { border-color: var(--blue); background: #eff6ff; transform: translateX(6px); box-shadow: 0 4px 12px rgba(37,99,235,.08); }
-    .cta-link-ic { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
-    .ic-green  { background: #dcfce7; }
-    .ic-blue2  { background: #dbeafe; }
-    .cta-link strong { display: block; font-size: 0.875rem; font-weight: 600; color: var(--ink); }
-    .cta-link small  { font-size: 0.78rem; color: var(--muted); }
-    .contact-form { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-sm); }
+    .wa-link:hover { opacity: 0.85; }
+
+    .contact-form {
+      background: var(--bg); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 28px;
+    }
     .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .fg { margin-bottom: 14px; }
-    .fg label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; letter-spacing: .04em; text-transform: uppercase; }
+    .fg { margin-bottom: 12px; }
+    .fg label {
+      display: block; font-size: 0.72rem; font-weight: 600;
+      color: var(--muted); margin-bottom: 4px;
+      letter-spacing: .03em; text-transform: uppercase;
+    }
     .fg input, .fg select, .fg textarea {
-      width: 100%; padding: 10px 13px;
-      background: var(--white); border: 1px solid var(--border);
+      width: 100%; padding: 9px 12px;
+      background: var(--surface); border: 1px solid var(--line);
       border-radius: 8px; color: var(--ink);
-      font-family: 'Instrument Sans', sans-serif; font-size: 0.9rem;
-      transition: border-color .2s, box-shadow .2s; appearance: none;
+      font-family: inherit; font-size: 0.88rem;
+      transition: border-color .15s; appearance: none;
     }
-    .fg input:focus, .fg select:focus, .fg textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(37,99,235,.1); }
-    .fg textarea { resize: vertical; min-height: 96px; }
-    .fg select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 13px center; }
+    .fg input:focus, .fg select:focus, .fg textarea:focus {
+      outline: none; border-color: var(--ink);
+    }
+    .fg textarea { resize: vertical; min-height: 88px; }
+    .fg select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+    }
     .btn-submit {
-      width: 100%; padding: 13px; background: linear-gradient(135deg, var(--blue), var(--indigo)); color: #fff;
-      border: none; border-radius: 12px; cursor: pointer;
-      font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: .02em; transition: all .22s;
-      box-shadow: 0 4px 14px rgba(37,99,235,.25);
+      width: 100%; padding: 11px;
+      background: var(--ink); color: #fff;
+      border: none; border-radius: 8px; cursor: pointer;
+      font-family: inherit; font-weight: 600; font-size: 0.88rem;
+      transition: opacity .15s;
     }
-    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,.4); filter: brightness(1.05); }
+    .btn-submit:hover { opacity: 0.8; }
 
     /* ─── FOOTER ─── */
     footer {
-      padding: 36px clamp(16px,5vw,56px);
-      border-top: 1px solid var(--border);
-      background: var(--white);
+      padding: 28px clamp(20px,5vw,48px);
+      border-top: 1px solid var(--line);
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }
-    .foot-logo { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--ink); }
-    .foot-logo em { color: var(--blue); font-style: normal; }
-    .foot-copy { font-size: 0.8rem; color: var(--muted); }
+    .foot-logo { font-weight: 700; font-size: 0.85rem; color: var(--ink); }
+    .foot-logo em { color: var(--accent); font-style: normal; }
+    .foot-copy { font-size: 0.75rem; color: var(--muted); }
 
     /* ─── FADE IN ─── */
-    .fi { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
+    .fi { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
     .fi.in { opacity: 1; transform: none; }
 
     /* ─── RESPONSIVE ─── */
@@ -328,10 +275,6 @@
       .hero-desc { margin: 0 auto 30px; }
       .hero-btns { justify-content: center; }
       .hero-photo { display: none; }
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .services-bottom { max-width: 100%; }
-      .certs-grid { grid-template-columns: 1fr; }
-      .certs-bottom { max-width: 100%; grid-template-columns: 1fr; }
       .contact-wrap { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
     }
@@ -340,10 +283,7 @@
       .hamburger { display: flex; }
       .form-row2 { grid-template-columns: 1fr; }
       section { padding: 60px 0; }
-    }
-    @media(max-width:480px) {
-      .services-grid { grid-template-columns: 1fr; }
-      .services-bottom { grid-template-columns: 1fr; }
+      .certs-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -369,112 +309,106 @@
   <div class="hero-inner">
     <div class="fi">
       <div class="hero-pill"><span class="dot-live"></span> Disponibile per nuovi progetti</div>
-      <h1>Sistemista IT<br><span class="hi-blue">Freelance</span><br><span class="hi-teal">& Cloud Specialist</span></h1>
+      <h1>Sistemista IT<br><span class="hi">Freelance</span> &<br>Cloud Specialist</h1>
       <p class="hero-desc">VMware Master Specialist, Linux e Veeam. Progetto, gestisco e automatizzo infrastrutture IT per aziende che non si possono permettere downtime.</p>
       <div class="hero-btns">
-        <a href="#contact" class="btn btn-blue">Parliamo →</a>
+        <a href="#contact" class="btn btn-primary">Contattami</a>
         <a href="#services" class="btn btn-ghost">Cosa faccio</a>
       </div>
     </div>
     <div class="hero-photo fi" style="transition-delay:.12s">
       <img src="profile.jpg" alt="Alessandro Schenetti" class="profile-img">
-      <!--<div class="badge-float bf1"><strong>5+ anni</strong><small>di esperienza</small></div>
-      <div class="badge-float bf2"><strong>VMware</strong><small>Master Specialist</small></div>-->
     </div>
   </div>
 </header>
 
 <div class="container">
+  <hr class="divider">
   <section id="services">
-    <p class="sec-eyebrow fi">Cosa faccio</p>
-    <h2 class="fi">Servizi Principali</h2>
-    <p class="sec-sub fi">Dall'infrastruttura on-premise al cloud ibrido, con automazione e zero improvvisazione.</p>
-    <div class="services-grid">
-      <div class="svc fi">
-        <div class="svc-icon ic-blue">⚡</div>
-        <h3>vSphere</h3>
-        <ul>
-          <li>Patching ESXi + vCenter</li><li>Upgrade major release</li>
-          <li>Migrazioni infrastrutturali</li><li>Troubleshooting avanzato</li>
-        </ul>
+    <p class="sec-label fi">Servizi</p>
+    <h2 class="fi">Cosa faccio</h2>
+    <p class="sec-desc fi">Dall'infrastruttura on-premise al cloud ibrido, con automazione e zero improvvisazione.</p>
+    <div class="services-list fi">
+      <div class="svc">
+        <div class="svc-icon">&#9889;</div>
+        <div class="svc-body">
+          <h3>vSphere</h3>
+          <p>Patching ESXi + vCenter, upgrade major release, migrazioni infrastrutturali, troubleshooting avanzato.</p>
+        </div>
       </div>
-      <div class="svc svc-teal fi" style="transition-delay:.06s">
-        <div class="svc-icon ic-teal">🐧</div>
-        <h3>Linux</h3>
-        <ul>
-          <li>Aggiornamenti & Hardening</li><li>Automazione Ansible/Bash</li>
-          <li>Gestione Web Server</li><li>Troubleshooting avanzato</li>
-        </ul>
+      <div class="svc">
+        <div class="svc-icon">&#128039;</div>
+        <div class="svc-body">
+          <h3>Linux</h3>
+          <p>Aggiornamenti & hardening, automazione Ansible/Bash, gestione web server, troubleshooting avanzato.</p>
+        </div>
       </div>
-      <div class="svc svc-amber fi" style="transition-delay:.12s">
-        <div class="svc-icon ic-amber">💾</div>
-        <h3>Veeam</h3>
-        <ul>
-          <li>Installazione & Upgrade</li><li>Risoluzione problemi backup</li>
-          <li>Migrazione repository</li><li>Piani Disaster Recovery</li>
-        </ul>
+      <div class="svc">
+        <div class="svc-icon">&#128190;</div>
+        <div class="svc-body">
+          <h3>Veeam</h3>
+          <p>Installazione & upgrade, risoluzione problemi backup, migrazione repository, piani disaster recovery.</p>
+        </div>
       </div>
-    </div>
-    <div class="services-bottom">
-      <div class="svc svc-indigo fi" style="transition-delay:.18s">
-        <div class="svc-icon ic-indigo">☁️</div>
-        <h3>Cloud Hybrid</h3>
-        <ul>
-          <li>VMware Cloud on AWS</li><li>Azure VMware Solution</li>
-          <li>Gestione infrastrutture Cloud</li><li>Ottimizzazione costi</li>
-        </ul>
+      <div class="svc">
+        <div class="svc-icon">&#9729;&#65039;</div>
+        <div class="svc-body">
+          <h3>Cloud Hybrid</h3>
+          <p>VMware Cloud on AWS, Azure VMware Solution, gestione infrastrutture cloud, ottimizzazione costi.</p>
+        </div>
       </div>
-      <div class="svc svc-rose fi" style="transition-delay:.24s">
-        <div class="svc-icon ic-rose">🌐</div>
-        <h3>Web</h3>
-        <ul>
-          <li>Gestione domini</li><li>Server DNS / Bind</li>
-          <li>Migrazione siti web</li>
-        </ul>
+      <div class="svc">
+        <div class="svc-icon">&#127760;</div>
+        <div class="svc-body">
+          <h3>Web</h3>
+          <p>Gestione domini, server DNS / Bind, migrazione siti web.</p>
+        </div>
       </div>
     </div>
   </section>
 </div>
 
+<div class="container">
+  <hr class="divider">
+</div>
+
 <section id="certifications">
   <div class="container">
-    <p class="sec-eyebrow fi">Certificazioni</p>
-    <h2 class="fi">Competenze Verificate</h2>
-    <p class="sec-sub fi">Certificazioni ufficiali che attestano le competenze tecniche.</p>
+    <p class="sec-label fi">Certificazioni</p>
+    <h2 class="fi">Competenze verificate</h2>
+    <p class="sec-desc fi">Certificazioni ufficiali che attestano le competenze tecniche.</p>
     <div class="certs-grid">
-      <div class="cert-card fi">
+      <div class="cert fi">
         <img src="certs/aws.png" alt="AWS" class="cert-logo">
-        <div class="cert-info">
+        <div class="cert-text">
           <div class="cert-vendor">Amazon Web Services</div>
-          <h4>AWS Certified Cloud Practitioner</h4>
+          <h4>Cloud Practitioner</h4>
         </div>
       </div>
-      <div class="cert-card fi" style="transition-delay:.07s">
+      <div class="cert fi" style="transition-delay:.05s">
         <img src="certs/vmwareaws.png" alt="VMware" class="cert-logo">
-        <div class="cert-info">
+        <div class="cert-text">
           <div class="cert-vendor">VMware</div>
-          <h4>Master Specialist – VMware Cloud on AWS</h4>
+          <h4>Master Specialist – Cloud on AWS</h4>
         </div>
       </div>
-      <div class="cert-card fi" style="transition-delay:.14s">
+      <div class="cert fi" style="transition-delay:.1s">
         <img src="certs/datacenter.png" alt="VMware" class="cert-logo">
-        <div class="cert-info">
+        <div class="cert-text">
           <div class="cert-vendor">VMware</div>
           <h4>VCP – Data Center Virtualization</h4>
         </div>
       </div>
-    </div>
-    <div class="certs-bottom">
-      <div class="cert-card fi" style="transition-delay:.21s">
+      <div class="cert fi" style="transition-delay:.15s">
         <img src="certs/nsx.png" alt="VMware" class="cert-logo">
-        <div class="cert-info">
+        <div class="cert-text">
           <div class="cert-vendor">VMware</div>
           <h4>VCP – Network Virtualization</h4>
         </div>
       </div>
-      <div class="cert-card fi" style="transition-delay:.28s">
+      <div class="cert fi" style="transition-delay:.2s">
         <img src="certs/tanzu.png" alt="VMware" class="cert-logo">
-        <div class="cert-info">
+        <div class="cert-text">
           <div class="cert-vendor">VMware</div>
           <h4>Specialist – vSphere with Tanzu</h4>
         </div>
@@ -485,23 +419,17 @@
 
 <section id="contact">
   <div class="container">
-    <p class="sec-eyebrow fi">Contatti</p>
+    <p class="sec-label fi">Contatti</p>
     <h2 class="fi">Parliamo del tuo progetto</h2>
-    <p class="sec-sub fi">Consulenze una-tantum, supporto continuativo o progetti a corpo.</p>
+    <p class="sec-desc fi">Consulenze una-tantum, supporto continuativo o progetti a corpo.</p>
     <div class="contact-wrap">
       <div class="contact-aside fi">
         <h3>Come posso aiutarti?</h3>
         <p>Hai un'infrastruttura da ottimizzare, una migrazione cloud da pianificare o problemi di backup da risolvere? Contattami direttamente.</p>
-        <div class="cta-links">
-          <a href="https://wa.me/393516657187" class="cta-link" target="_blank">
-            <div class="cta-link-ic ic-green">💬</div>
-            <div><strong>WhatsApp</strong><small>Risposta rapida</small></div>
-          </a>
-          <!--<a href="tel:+393516657187" class="cta-link">
-            <div class="cta-link-ic ic-blue2">📞</div>
-            <div><strong>+39 351 665 7187</strong><small>Lun–Ven, 9:00–18:00</small></div>
-          </a>-->
-        </div>
+        <a href="https://wa.me/393516657187" class="wa-link" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
       </div>
       <div class="contact-form fi" style="transition-delay:.1s">
         <form action="https://formspree.io/f/mrezwgbd" method="POST">
@@ -512,7 +440,7 @@
           <div class="fg">
             <label>Ambito di interesse</label>
             <select name="servizio" required>
-              <option value="" disabled selected>Seleziona un ambito…</option>
+              <option value="" disabled selected>Seleziona un ambito...</option>
               <option value="vmware">Virtualizzazione VMware</option>
               <option value="linux">Sistemi Linux</option>
               <option value="veeam">Backup & Veeam</option>
@@ -520,8 +448,8 @@
               <option value="altro">Altro</option>
             </select>
           </div>
-          <div class="fg"><label>Messaggio</label><textarea name="messaggio" placeholder="Descrivi brevemente la tua necessità…"></textarea></div>
-          <button type="submit" class="btn-submit">Invia messaggio →</button>
+          <div class="fg"><label>Messaggio</label><textarea name="messaggio" placeholder="Descrivi brevemente la tua necessità..."></textarea></div>
+          <button type="submit" class="btn-submit">Invia messaggio</button>
         </form>
       </div>
     </div>
@@ -530,7 +458,7 @@
 
 <footer>
   <div class="foot-logo">Alessandro <em>Schenetti</em></div>
-  <div class="foot-copy">Modena, Italia · P.IVA IT 03124900352 · © 2026</div>
+  <div class="foot-copy">Modena, Italia · P.IVA IT 03124900352 · &copy; 2026</div>
 </footer>
 
 <script>
