@@ -186,26 +186,42 @@
     /* ─── SERVICES ─── */
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .services-grid .svc:nth-child(4),
+    .services-grid .svc:nth-child(5) {
+      /* center the last 2 cards */
+    }
+    .services-bottom {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 66.666%;
+      margin: 20px auto 0;
     }
     .svc {
       background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 26px 22px;
+      border-radius: var(--radius); padding: 30px 26px;
       transition: all .3s ease; cursor: default;
       position: relative; overflow: hidden;
     }
     .svc::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--blue), var(--teal));
+      border-radius: var(--radius) var(--radius) 0 0;
       opacity: 0; transition: opacity .3s;
     }
+    .svc:nth-child(1)::before, .svc.svc-blue::before { background: var(--blue); }
+    .svc:nth-child(2)::before, .svc.svc-teal::before { background: var(--teal); }
+    .svc:nth-child(3)::before, .svc.svc-amber::before { background: var(--amber); }
+    .svc.svc-indigo::before { background: var(--indigo); }
+    .svc.svc-rose::before { background: var(--rose); }
     .svc:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
     .svc:hover::before { opacity: 1; }
     .svc-icon {
-      width: 44px; height: 44px; border-radius: 13px;
+      width: 48px; height: 48px; border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem; margin-bottom: 16px;
+      font-size: 1.4rem; margin-bottom: 18px;
     }
     .ic-blue   { background: #eff6ff; }
     .ic-teal   { background: #f0fdfa; }
@@ -214,36 +230,41 @@
     .ic-rose   { background: #fff1f2; }
     .svc h3 {
       font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px;
+      font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 14px;
     }
     .svc ul { list-style: none; }
     .svc ul li {
-      font-size: 0.85rem; color: var(--muted); padding: 4px 0;
-      border-bottom: 1px solid #f3f4f6; display: flex; align-items: baseline; gap: 6px;
+      font-size: 0.875rem; color: var(--muted); padding: 5px 0;
+      border-bottom: 1px solid #f1f5f9; display: flex; align-items: baseline; gap: 8px;
     }
     .svc ul li:last-child { border-bottom: none; }
-    .svc ul li::before { content: '·'; color: var(--blue); font-size: 1.1em; flex-shrink: 0; }
+    .svc ul li::before { content: '→'; color: var(--blue); font-size: 0.75em; flex-shrink: 0; }
 
     /* ─── CERTIFICATIONS ─── */
     #certifications { background: var(--white); }
-    .certs-scroll {
-      display: flex; gap: 16px;
-      overflow-x: auto; padding-bottom: 12px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
-    .certs-scroll::-webkit-scrollbar { height: 4px; }
-    .certs-scroll::-webkit-scrollbar-track { background: var(--bg); border-radius: 4px; }
-    .certs-scroll::-webkit-scrollbar-thumb { background: linear-gradient(90deg, var(--blue), var(--teal)); border-radius: 4px; }
+    .certs-bottom {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 66.666%;
+      margin: 16px auto 0;
+    }
     .cert-card {
-      flex: 0 0 248px; scroll-snap-align: start;
       background: var(--bg); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 26px 22px; transition: all .3s ease;
+      border-radius: var(--radius); padding: 28px 24px;
+      transition: all .3s ease;
+      display: flex; align-items: center; gap: 20px;
     }
-    .cert-card:hover { border-color: var(--blue); box-shadow: 0 12px 32px rgba(37,99,235,.12); transform: translateY(-5px); }
-    .cert-logo { width: 68px; height: 68px; object-fit: contain; margin-bottom: 16px; }
-    .cert-vendor { font-size: 0.7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: 5px; }
-    .cert-card h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--ink); }
+    .cert-card:hover { border-color: var(--blue); box-shadow: 0 12px 32px rgba(37,99,235,.1); transform: translateY(-4px); }
+    .cert-logo { width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; }
+    .cert-info { flex: 1; }
+    .cert-vendor { font-size: 0.68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+    .cert-card h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
 
     /* ─── CONTACT ─── */
     #contact { background: var(--white); }
@@ -306,6 +327,10 @@
       .hero-desc { margin: 0 auto 30px; }
       .hero-btns { justify-content: center; }
       .hero-photo { display: none; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-bottom { max-width: 100%; }
+      .certs-grid { grid-template-columns: 1fr; }
+      .certs-bottom { max-width: 100%; grid-template-columns: 1fr; }
       .contact-wrap { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
     }
@@ -316,7 +341,8 @@
       section { padding: 60px 0; }
     }
     @media(max-width:480px) {
-      .services-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .services-bottom { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -371,7 +397,7 @@
           <li>Migrazioni infrastrutturali</li><li>Troubleshooting avanzato</li>
         </ul>
       </div>
-      <div class="svc fi" style="transition-delay:.06s">
+      <div class="svc svc-teal fi" style="transition-delay:.06s">
         <div class="svc-icon ic-teal">🐧</div>
         <h3>Linux</h3>
         <ul>
@@ -379,7 +405,7 @@
           <li>Gestione Web Server</li><li>Troubleshooting avanzato</li>
         </ul>
       </div>
-      <div class="svc fi" style="transition-delay:.12s">
+      <div class="svc svc-amber fi" style="transition-delay:.12s">
         <div class="svc-icon ic-amber">💾</div>
         <h3>Veeam</h3>
         <ul>
@@ -387,7 +413,9 @@
           <li>Migrazione repository</li><li>Piani Disaster Recovery</li>
         </ul>
       </div>
-      <div class="svc fi" style="transition-delay:.18s">
+    </div>
+    <div class="services-bottom">
+      <div class="svc svc-indigo fi" style="transition-delay:.18s">
         <div class="svc-icon ic-indigo">☁️</div>
         <h3>Cloud Hybrid</h3>
         <ul>
@@ -395,7 +423,7 @@
           <li>Gestione infrastrutture Cloud</li><li>Ottimizzazione costi</li>
         </ul>
       </div>
-      <div class="svc fi" style="transition-delay:.24s">
+      <div class="svc svc-rose fi" style="transition-delay:.24s">
         <div class="svc-icon ic-rose">🌐</div>
         <h3>Web</h3>
         <ul>
@@ -412,31 +440,43 @@
     <p class="sec-eyebrow fi">Certificazioni</p>
     <h2 class="fi">Competenze Verificate</h2>
     <p class="sec-sub fi">Certificazioni ufficiali che attestano le competenze tecniche.</p>
-    <div class="certs-scroll">
+    <div class="certs-grid">
       <div class="cert-card fi">
         <img src="certs/aws.png" alt="AWS" class="cert-logo">
-        <div class="cert-vendor">Amazon Web Services</div>
-        <h4>AWS Certified Cloud Practitioner</h4>
+        <div class="cert-info">
+          <div class="cert-vendor">Amazon Web Services</div>
+          <h4>AWS Certified Cloud Practitioner</h4>
+        </div>
       </div>
       <div class="cert-card fi" style="transition-delay:.07s">
         <img src="certs/vmwareaws.png" alt="VMware" class="cert-logo">
-        <div class="cert-vendor">VMware</div>
-        <h4>Master Specialist – VMware Cloud on AWS</h4>
+        <div class="cert-info">
+          <div class="cert-vendor">VMware</div>
+          <h4>Master Specialist – VMware Cloud on AWS</h4>
+        </div>
       </div>
       <div class="cert-card fi" style="transition-delay:.14s">
         <img src="certs/datacenter.png" alt="VMware" class="cert-logo">
-        <div class="cert-vendor">VMware</div>
-        <h4>VCP – Data Center Virtualization</h4>
+        <div class="cert-info">
+          <div class="cert-vendor">VMware</div>
+          <h4>VCP – Data Center Virtualization</h4>
+        </div>
       </div>
+    </div>
+    <div class="certs-bottom">
       <div class="cert-card fi" style="transition-delay:.21s">
         <img src="certs/nsx.png" alt="VMware" class="cert-logo">
-        <div class="cert-vendor">VMware</div>
-        <h4>VCP – Network Virtualization</h4>
+        <div class="cert-info">
+          <div class="cert-vendor">VMware</div>
+          <h4>VCP – Network Virtualization</h4>
+        </div>
       </div>
       <div class="cert-card fi" style="transition-delay:.28s">
         <img src="certs/tanzu.png" alt="VMware" class="cert-logo">
-        <div class="cert-vendor">VMware</div>
-        <h4>Specialist – vSphere with Tanzu</h4>
+        <div class="cert-info">
+          <div class="cert-vendor">VMware</div>
+          <h4>Specialist – vSphere with Tanzu</h4>
+        </div>
       </div>
     </div>
   </div>
